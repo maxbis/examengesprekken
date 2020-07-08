@@ -5,6 +5,8 @@ namespace app\controllers;
 use Yii;
 use app\models\Examen;
 use app\models\ExamenSearch;
+use app\models\GesprekSoort;
+use app\models\ExamenGesprekSoort;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -88,14 +90,40 @@ class ExamenController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+
+          $sql="delete from examen_gesprek_soort where examen_id = :examenid";
+          $params = array(':examenid'=> $id);
+          Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
+
+          if(!empty($_POST['checkbox'])) {
+            foreach($_POST['checkbox'] as $value) {
+              $sql="insert into examen_gesprek_soort (examen_id, gesprek_soort_id) values(:examenid, :gesprekid)";
+              $params = array(':examenid'=> $id, ':gesprekid' => $value );
+              Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
+            }
+          }
+
+          return $this->redirect(['index']);
         }
 
-        // ToDo get all gespreksoorten in arrat en stuur naar view
+        // all gespreksoorten to be viewed in update examen screen in order to bind them to examen
+        $gesprekSoort = gesprekSoort::find()->all();
+        $gesprekSoortChecked = examenGesprekSoort::findAll(['examen_id' => $id]);
 
+        $gesprekCheckedArray=[];
+        foreach ($gesprekSoortChecked as $item) {
+          $gesprekCheckedArray[] = $item['gesprek_soort_id'];
+        }
+
+        // var_dump($gesprekSoortChecked);
+
+        // ATTENTION, when added please add in update as well: update is a wrapper for _form !!
         return $this->render('update', [
             'model' => $model,
+            'gesprek' => $gesprekSoort,
+            'gesprekChecked' => $gesprekCheckedArray,
         ]);
+
     }
 
     /**
@@ -127,4 +155,5 @@ class ExamenController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }

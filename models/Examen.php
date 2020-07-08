@@ -57,8 +57,10 @@ class Examen extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getExamenGesprekSoorts()
+    public function getExamenGesprekSoort()
     {
         return $this->hasMany(ExamenGesprekSoort::className(), ['examen_id' => 'id']);
+        // return $this->hasMany(GesprekSoort::className());
     }
+
 }

@@ -46,9 +46,32 @@ use nex\datepicker\DatePicker;
 
     <?= $form->field($model, 'actief')->checkbox(); ?>
 
+    <?php if (isset($gesprek)): ?>
+      <h2>Gesprekken</h2>
+      <p>
+      <?php foreach ($gesprek as $item): ?>
+        <?php $name = $item['kerntaak_nr'].".".$item['gesprek_nr']." : ".
+                $item['kerntaak_naam']." ".$item['gesprek_naam']."<br>";
+
+                if ( in_array($item['id'], $gesprekChecked) ) {
+                  $status="checked";
+                } else {
+                  $status="unchecked";
+                }
+        ?>
+        <input type="checkbox" id=<?= $item['id'] ?> name='checkbox[]' value=<?= $item['id'] ?> <?= $status ?> >
+        <label for=<?= $item['id'] ?> > <?= $name ?> </label> <br>
+      <?php endforeach ?>
+    <?php endif ?>
+    </p>
+
+    <br>
     <div class="form-group">
+        <?= Html::a('Cancel', ['/examen/index'], ['class'=>'btn btn-primary']) ?>
+        &nbsp;&nbsp;&nbsp;
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
+
 
     <?php ActiveForm::end(); ?>
 

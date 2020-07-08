@@ -40,6 +40,10 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Examens', 'url' => ['/examen/index']],
             ['label' => 'Gesprek Soort', 'url' => ['/gesprek-soort/index']],
+            ['label' => 'Rolspelers', 'url' => ['/rolspeler/index']],
+            ['label' => 'Gesprekken', 'url' => ['/gesprek/index']],
+            ['label' => 'Overzicht', 'url' => ['/gesprek/overzicht']],
+            ['label' => 'Gespreksaanvraag', 'url' => ['/gesprek/create']],
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
