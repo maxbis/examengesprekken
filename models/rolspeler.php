@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $naam
- * @property int $active
+ * @property int $actief
  *
  * @property Gesprek[] $gespreks
  */
@@ -29,7 +29,7 @@ class rolspeler extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['naam', 'active'], 'required'],
+            [['naam', 'actief'], 'required'],
             [['actief'], 'integer'],
             [['naam'], 'string', 'max' => 100],
         ];
@@ -43,7 +43,7 @@ class rolspeler extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'naam' => 'Naam',
-            'actief' => 'Active',
+            'actief' => 'actief',
         ];
     }
 

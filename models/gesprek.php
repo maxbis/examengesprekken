@@ -83,4 +83,14 @@ class gesprek extends \yii\db\ActiveRecord
         rolspeler::find()->all();
         return rolspeler::find()->where(['actief' => '1'])->all();;
     }
+
+    public function getStatusNaam()
+    {
+        return $this->hasOne(GesprekStatus::className(), ['id' => 'status']);
+    }
+
+    public function getGespreksNaam()
+    {
+        return $this->hasOne(GesprekSoort::className(), ['id' => 'gesprek_soort_id']);
+    }
 }
