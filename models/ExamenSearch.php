@@ -40,7 +40,8 @@ class ExamenSearch extends Examen
      */
     public function search($params)
     {
-        $query = Examen::find()->orderBy(['datum_van' => SORT_DESC, 'datum_tot' => SORT_DESC]);;
+        // $query = Examen::find()->orderBy(['datum_van' => SORT_DESC, 'datum_tot' => SORT_DESC]);;
+        $query = examen::find();
 
         // add conditions that should always apply here
 
@@ -65,7 +66,6 @@ class ExamenSearch extends Examen
         ]);
 
         $query->andFilterWhere(['like', 'naam', $this->naam]);
-
         return $dataProvider;
     }
 }

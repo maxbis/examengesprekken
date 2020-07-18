@@ -1,6 +1,7 @@
 html,
 body {
     height: 100%;
+    font-size: 12px;
 }
 
 .wrap {
@@ -19,6 +20,9 @@ body {
     background-color: #f5f5f5;
     border-top: 1px solid #ddd;
     padding-top: 20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .jumbotron {
@@ -105,11 +109,25 @@ a.desc:after {
     }
 }
 
-.nav > li > form > button.logout:focus,
-.nav > li > form > button.logout:hover {
-    text-decoration: none;
+
+// Added by MB
+
+.nav {
+    font-size: 2.4em;
 }
 
-.nav > li > form > button.logout:focus {
-    outline: none;
+.nav li {
+    padding-right:0px;
+    font-size: 1.4em;
+}
+
+
+ul.nav a:hover {
+    color:#a94442;
+    background-color: #E0E0E0;
+}
+
+h1 {
+    color:#424ca9;
+    font-style: italic;
 }

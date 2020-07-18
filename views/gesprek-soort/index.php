@@ -13,16 +13,13 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="gesprek-soort-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Gesprek Soort', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <hr>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             // ['class' => 'yii\grid\SerialColumn'],
             [
@@ -41,18 +38,21 @@ $this->params['breadcrumbs'][] = $this->title;
               'attribute'=>'gesprek_naam',
               'contentOptions' => ['style' => 'width:300px; white-space: normal;'],
             ],
-            // 'id',
-            //'kerntaak_nr',
-            //'kerntaak_naam:ntext',
-            //'gesprek_nr',
-            //'gesprek_naam:ntext',
-
             [
               'class' => 'yii\grid\ActionColumn',
               'contentOptions' => ['style' => 'width:100px; white-space: normal;'],
             ],
         ],
     ]); ?>
-
-
 </div>
+
+<br>
+<p>
+  <?= Html::a('Create Gesprek Soort', ['create'], ['class' => 'btn btn-success']) ?>
+</p>
+<br>
+<hr>
+<p>Gesprekken worden gekoppeld aan examens door in het <a href="/examen/index/">examenoverzicht</a> op de
+examennaam te klikken.</p>
+<p>Gesprekken kunnen worden gekopiierd vanuit het edit view-scherm; klik op het oogje bij het gesprek dat je wilt
+kopieëren.</p>

@@ -39,6 +39,9 @@ class GesprekSoortController extends Controller
         $searchModel = new GesprekSoortSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        //$dataProvider = $searchModel->search(['sort' => 'kerntaak_naam']);
+        //dd(($dataProvider));
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

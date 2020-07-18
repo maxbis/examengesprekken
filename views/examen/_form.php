@@ -13,36 +13,39 @@ use nex\datepicker\DatePicker;
 <div class="examen-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'naam')->textInput(['maxlength' => true]) ?>
-
-    <div class="row">
-      <div class="col-sm-2">
-        <?= $form->field($model, 'datum_van')->widget(
-            DatePicker::className(), [
-              'clientOptions' => [
-                'format' => 'Y-MM-D',
-                'stepping' => 30,
-                'minDate' => '2020-01-01',
-                'maxDate' => '2025-12-31',
-              ],
-            ]);
-        ?>
+      <div class="row">
+        <div class="col-sm-6">
+          <?= $form->field($model, 'naam')->textInput(['maxlength' => true]) ?>
+        </div>
       </div>
 
-      <div class="col-sm-2">
-        <?= $form->field($model, 'datum_tot')->widget(
-            DatePicker::className(), [
-              'clientOptions' => [
-                'format' => 'Y-MM-D',
-                'stepping' => 30,
-                'minDate' => '2020-01-01',
-                'maxDate' => '2025-12-31',
-              ],
-            ]);
-        ?>
+      <div class="row">
+        <div class="col-sm-2">
+          <?= $form->field($model, 'datum_van')->widget(
+              DatePicker::className(), [
+                'clientOptions' => [
+                  'format' => 'Y-MM-D',
+                  'stepping' => 30,
+                  'minDate' => '2020-01-01',
+                  'maxDate' => '2025-12-31',
+                ],
+              ]);
+          ?>
+        </div>
+
+        <div class="col-sm-2">
+          <?= $form->field($model, 'datum_tot')->widget(
+              DatePicker::className(), [
+                'clientOptions' => [
+                  'format' => 'Y-MM-D',
+                  'stepping' => 30,
+                  'minDate' => '2020-01-01',
+                  'maxDate' => '2025-12-31',
+                ],
+              ]);
+          ?>
+        </div>
       </div>
-    </div>
 
     <?= $form->field($model, 'actief')->checkbox(); ?>
 
@@ -67,12 +70,15 @@ use nex\datepicker\DatePicker;
 
     <br>
     <div class="form-group">
-        <?= Html::a('Cancel', ['/examen/index'], ['class'=>'btn btn-primary']) ?>
-        &nbsp;&nbsp;&nbsp;
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+      <?= Html::a('Cancel', ['/examen/index'], ['class'=>'btn btn-primary']) ?>
+      &nbsp;&nbsp;&nbsp;
+      <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
-
-    <?php ActiveForm::end(); ?>
+  </div>
+  <?php ActiveForm::end(); ?>
 
 </div>
+
+<br>
+Examenesprekken kunnen worden aangemaakt vanuit het <a href="/gesprek-soort/index">gesprekkenoverzicht</a>.

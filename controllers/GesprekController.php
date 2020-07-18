@@ -12,6 +12,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\Pagination;
+use yii\app;
+
+use yii\filters\AccessControl;
 
 /**
  * GesprekController implements the CRUD actions for Gesprek model.
@@ -23,14 +26,30 @@ class GesprekController extends Controller
      */
     public function behaviors()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
+      return [
+        'access' => [
+        'class' => AccessControl::className(),
+
+        'rules' => [
+              // when logged in, any user
+              [ 'actions' => ['index','view','create'],
+                'allow' => true,
+                'roles' => ['@']
+              ],
+              // only role == admin
+              [ 'actions' => ['update','delete','overzicht'],
+                'allow' => true,
+                'roles' => ['@'],
+                'matchCallback' => function ($rule, $action)
+                {
+                  return (Yii::$app->user->identity->role == 'admin');
+                }
+              ],
+
+           ],
+
+         ],
+      ];
     }
 
     /**
@@ -49,6 +68,15 @@ class GesprekController extends Controller
     }
 
     public function actionOverzicht() {
+
+      //$role = Yii::$app->user->identity->role;
+
+      //d($role);
+
+      //if ($role != 'axdmin') {
+      //  return $this->redirect('site/login');
+      //}
+
       $this->view->title = 'Status Gesprekken';
       $query = gesprek::find();
 
@@ -102,16 +130,7 @@ class GesprekController extends Controller
           $rolspelerList[$item['id']] = $item['naam'];
         }
 
-        // get firstactive examen (order by datum_van ASC)
-        $examen = examen::find()->where(['actief' => '1'])->orderBy(['datum_van' => 'SORT_DESC'])->one();
-
-        $gesprekken = gesprekSoort::find()->where([ 'examen_id' => $examen['id'] ])->joinWith('examenGesprekSoorts')->all();
-
-        $gesprekkenList=[];
-        foreach($gesprekken as $item) {
-          $gesprekkenList[$item['id']] = $item['kerntaak_nr'].".".$item['gesprek_nr']." : ".
-                  $item['kerntaak_naam']." ".$item['gesprek_naam'];
-        }
+        [$examen, $gesprekkenList] = $this->getGesprekkenList();
 
         // dd($gesprekkenList);
 
@@ -121,6 +140,21 @@ class GesprekController extends Controller
             'gesprekkenList' => $gesprekkenList,
             'examen' => $examen,
         ]);
+    }
+
+    private function getGesprekkenList() {
+      // get firstactive examen (order by datum_van ASC) - get active exam...?
+      // and get linked examen-gesprekken
+      $examen = examen::find()->where(['actief' => '1'])->orderBy(['datum_van' => 'SORT_DESC'])->one();
+
+      $gesprekken = gesprekSoort::find()->where([ 'examen_id' => $examen['id'] ])->joinWith('examenGesprekSoorts')->all();
+
+      $gesprekkenList=[];
+      foreach($gesprekken as $item) {
+        $gesprekkenList[$item['id']] = $item['kerntaak_nr'].".".$item['gesprek_nr']." : ".
+                $item['kerntaak_naam']." ".$item['gesprek_naam'];
+      }
+      return [$examen, $gesprekkenList];
     }
 
     /**
@@ -138,8 +172,12 @@ class GesprekController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        [$examen, $gesprekkenList] = $this->getGesprekkenList();
+
         return $this->render('update', [
             'model' => $model,
+            'gesprekkenList' => $gesprekkenList,
+            'examen'=> $examen,
         ]);
     }
 

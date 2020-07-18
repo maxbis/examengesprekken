@@ -29,12 +29,13 @@ class SiteController extends Controller
                     ],
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
+            // logout only via post???
+            //'verbs' => [
+            //    'class' => VerbFilter::className(),
+            //    'actions' => [
+            //        'logout' => ['post'],
+            //    ],
+            //],
         ];
     }
 

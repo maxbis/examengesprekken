@@ -40,6 +40,7 @@ class GesprekSoortSearch extends GesprekSoort
      */
     public function search($params)
     {
+        // $query = GesprekSoort::find()->orderBy(['kerntaak_nr' => SORT_ASC, 'gesprek_nr' => SORT_ASC]);
         $query = GesprekSoort::find();
 
         // add conditions that should always apply here

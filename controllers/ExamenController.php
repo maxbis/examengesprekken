@@ -147,13 +147,20 @@ class ExamenController extends Controller
      * @return Examen the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Examen::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionToggleActief($id) {
+        // function toggles boolean actief
+        $sql="update examen set actief=!actief where id = :id";
+        $params = array(':id'=> $id);
+        Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
+        return $this->redirect(['/examen/index']);
     }
 
 }

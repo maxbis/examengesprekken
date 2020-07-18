@@ -12,11 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="gesprek-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Gesprekken</h1>
+    <hr>
 
-    <p>
-        <?= Html::a('Create Gesprek', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -45,3 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
 </div>
+<br>
+<p>
+    <?= Html::a('Create Gesprek', ['create'], ['class' => 'btn btn-success']) ?>
+</p>

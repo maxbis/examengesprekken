@@ -5,8 +5,8 @@
 
 use app\widgets\Alert;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use yii\bootstrap4\Nav;
+use yii\bootstrap4\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -24,59 +24,80 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
+
 <?php $this->beginBody() ?>
 
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Examens', 'url' => ['/examen/index']],
-            ['label' => 'Gesprek Soort', 'url' => ['/gesprek-soort/index']],
-            ['label' => 'Rolspelers', 'url' => ['/rolspeler/index']],
-            ['label' => 'Gesprekken', 'url' => ['/gesprek/index']],
-            ['label' => 'Overzicht', 'url' => ['/gesprek/overzicht']],
-            ['label' => 'Gespreksaanvraag', 'url' => ['/gesprek/create']],
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
-    ?>
+<?php
+NavBar::begin([
+    'brandLabel' => '<img src="/planner.jpg" >',
+    'brandUrl' => '/examen/index',
+    'options' => [
+        //'class' => 'navbar-inverse navbar-fixed-top',
+        'class' => 'navbar navbar-expand-sm bg-light',
+        //'style' => 'font-size: 1.5em',
+    ],
+]);
 
-    <div class="container">
+echo Nav::widget([
+    //'options' => ['class' => 'navbar-nav navbar-right'],
+    'options' => ['class' => 'navbar-nav mr-auto'],
+    'encodeLabels' => false,
+    'items' => [
+        [   'label' => 'Docent',
+            //'class'=>'bootstrap.widgets.BootMenu',
+            //'htmlOptions'=>array('style'=>'font-size: 2.5em'),
+            'items' => [
+                 ['label' => 'Examens', 'url' => ['/examen/index']],
+                 ['label' => 'Gesprektypen', 'url' => ['/gesprek-soort/index']],
+                 ['label' => 'Rolspelers', 'url' => ['/rolspeler/index']],
+                 ['label' => 'Gesprekken', 'url' => ['/gesprek/index']],
+                 ['label' => 'Planner', 'url' => ['/gesprek/overzicht']],
+            ],
+            'options' => ['class' => 'nav-item']
+        ],
+        [
+            'label' => 'Student',
+            'items' => [
+                 ['label' => 'Aanvraag', 'url' => ['/gesprek/create']],
+            ],
+        ],
+        // ['label' => 'Home', 'url' => ['/site/index'], 'options' => ['class' => 'nav-item'] ],
+        // ['label' => 'About', 'url' => ['/site/about'], 'options' => ['class' => 'nav-item'] ],
+        // ['label' => 'Contact', 'url' => ['/site/contact'], 'options' => ['class' => 'nav-item'] ],
+    ],
+]);
+
+echo Nav::widget([
+    'options' => ['class' => 'navbar-nav ml-auto'],
+    'items' => [
+        Yii::$app->user->isGuest ? (
+            ['label' => 'Login', 'url' => ['/site/login'], 'options' => ['class' => 'nav-item']]
+        ) : (
+            ['label' => 'Logout', 'url' => ['/site/logout'], 'options' => ['class' => 'nav-item'],]
+        )
+    ],
+]);
+
+NavBar::end();
+?>
+
+
+<div class="container">
+    <!--
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
+    <?= Alert::widget() ?>
+    -->
+    <hr>
+    <?= $content ?>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+<br>
 
+<footer class="footer" >
+    <div class="container">
+        <p class="pull-left">&copy; ROCvA <?= date('Y') ?></p>
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>

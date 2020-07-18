@@ -24,10 +24,18 @@ use yii\widgets\LinkPager;
       <tr>
         <?php $gesprek =  $item->gesprekSoort->kerntaak_nr.".".$item->gesprekSoort->gesprek_nr." ".$item->gesprekSoort->gesprek_naam;
         ?>
-        <?php //dd($gesprek); ?>
-        <td><?= $item->student_naam ?></td>
-        <td><?= $item->lokaal ?></td>
-        <td><?= $gesprek ?></td>
+
+        <?php if ($item->status == 1): // loopt ?>
+          <?php $style="font-weight:bold; color:#349101;" ?>
+        <?php elseif(($item->status == 2)): // klaar ?>
+          <?php $style="color:#202020" ?>
+        <?php elseif(($item->status == 0)): // wachten ?>
+          <?php $style="color:#d90202; font-weight:bold;" ?>
+        <?php endif;?>
+
+        <td style="<?=$style?>"><?= $item->student_naam ?></td>
+        <td style="<?=$style?>"><?= $item->lokaal ?></td>
+        <td style="<?=$style?>"><?= $gesprek ?></td>
         <form action="/gesprek/update-regel">
         <input type="hidden" id="id" name="id" value=<?= $item->id  ?>>
           <td>
@@ -44,12 +52,9 @@ use yii\widgets\LinkPager;
             </select>
           </td><td>
             <select name="status" id="status">
-              <option value=0 >Wachten</option>
-              <option value=1 >Loopt</option>
-              <option value=1 >Klaar</option>
               <?php
-                $status=['wachten','Loopt','Klaar']; 
-                for($i=0;$i<=2;$i++): 
+                $status=['wachten','Loopt','Klaar'];
+                for($i=0;$i<=2;$i++):
                   if ($i == $item->status) {
                     $select = 'selected';
                   } else {

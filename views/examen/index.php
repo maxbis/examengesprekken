@@ -12,44 +12,56 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="examen-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+  <h1><?= Html::encode($this->title) ?></h1>
+  <hr>
 
-    <p>
-        <?= Html::a('Create Examen', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+  <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+  <?= GridView::widget([
+      'dataProvider' => $dataProvider,
+      //'filterModel' => $searchModel,
+      'columns' => [
+          // ['class' => 'yii\grid\SerialColumn'],
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            // ['class' => 'yii\grid\SerialColumn'],
-            [
-              'attribute'=>'naam',
-              'contentOptions' => ['style' => 'width:600px; white-space: normal;'],
-            ],
-            [
-              'attribute'=>'datum_van',
-              'contentOptions' => ['style' => 'width:40px; white-space: normal;'],
-            ],
-            [
-              'attribute'=>'datum_tot',
-              'contentOptions' => ['style' => 'width:40px; white-space: normal;'],
-            ],
-            [
-              'attribute'=>'actief',
-              'contentOptions' => ['style' => 'width:10px; white-space: normal;'],
-            ],
-            // 'id',
-            // 'naam',
-            // 'datum_van',
-            // 'datum_tot',
-            // 'actief',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+          [
+            'attribute'=>'datum_van',
+            'contentOptions' => ['style' => 'width:40px; white-space: normal;'],
+          ],
+          [
+            'attribute'=>'datum_tot',
+            'contentOptions' => ['style' => 'width:40px; white-space: normal;'],
+          ],
+          [
+            'attribute'=>'actief',
+            'contentOptions' => ['style' => 'width:20px; white-space: normal;'],
+            'format' => 'raw',
+            'value' => function ($data) {
+              $status = $data->actief ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-minus"></span>';
+              return Html::a($status, '/examen/toggle-actief?id='.$data->id);
+            }
+          ],
+          [
+            'attribute'=>'naam',
+            'contentOptions' => ['style' => 'width:600px; white-space: normal;'],
+            'format' => 'raw',
+            'value' => function ($data) {
+              return Html::a($data->naam, '/examen/update?id='.$data->id);
+            },
+          ],
+          [
+            'class' => 'yii\grid\ActionColumn',
+            'contentOptions' => ['style' => 'width:20px;'],
+            'template' => '{delete}',
+          ],
+      ],
+  ]); ?>
 
 
 </div>
+<br>
+<p>
+  <?= Html::a('Nieuw Examen', ['create'], ['class' => 'btn btn-success']) ?>
+</p>
+<br>
+<hr>
+Examenesprekken kunnen worden aangemaakt vanuit het <a href="/gesprek-soort/index">gesprekkenoverzicht</a>.
