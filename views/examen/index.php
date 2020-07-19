@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="examen-index">
 
   <h1><?= Html::encode($this->title) ?></h1>
+  Open voor gespreksaanvragen: <span class="bg-secondary text-white" > <?= $examen->naam ?> </span>
   <hr>
 
   <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -22,13 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
       //'filterModel' => $searchModel,
       'columns' => [
           // ['class' => 'yii\grid\SerialColumn'],
-
           [
-            'attribute'=>'datum_van',
-            'contentOptions' => ['style' => 'width:40px; white-space: normal;'],
-          ],
-          [
-            'attribute'=>'datum_tot',
+            'attribute'=>'id',
             'contentOptions' => ['style' => 'width:40px; white-space: normal;'],
           ],
           [
@@ -41,17 +37,48 @@ $this->params['breadcrumbs'][] = $this->title;
             }
           ],
           [
+            'attribute'=>'datum_van',
+            'contentOptions' => ['style' => 'width:40px; white-space: normal;'],
+          ],
+          [
+            'attribute'=>'datum_tot',
+            'contentOptions' => ['style' => 'width:40px; white-space: normal;'],
+          ],
+
+          [
             'attribute'=>'naam',
             'contentOptions' => ['style' => 'width:600px; white-space: normal;'],
             'format' => 'raw',
             'value' => function ($data) {
-              return Html::a($data->naam, '/examen/update?id='.$data->id);
+              return Html::a($data->naam, ['/examen/update?id='.$data->id]);
+            },
+          ],
+          [
+            'attribute'=>'',
+            'contentOptions' => ['style' => 'width:20px; white-space: normal;'],
+            'format' => 'raw',
+            'value' => function ($data) {
+              return Html::a('<span class="glyphicon glyphicon-play"></span>',
+              ['/gesprek/index?GesprekSearch[statusNaam]=&GesprekSearch[student_naam]=&GesprekSearch[lokaal]=
+              &GesprekSearch[examen_id]='.$data->id]);
             },
           ],
           [
             'class' => 'yii\grid\ActionColumn',
-            'contentOptions' => ['style' => 'width:20px;'],
-            'template' => '{delete}',
+            'contentOptions' => ['style' => 'width:50px;'],
+            'template' => '{delete}', 
+            'buttons' => [
+              'delete' => function($url, $model){
+                  return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], [
+                      'class' => '',
+                      'data' => [
+                          'confirm' => 'Weet je het zeker?',
+                          'method' => 'post',
+                      ],
+                  ]);
+              },
+            ],
+            
           ],
       ],
   ]); ?>
@@ -60,8 +87,16 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <br>
 <p>
+
   <?= Html::a('Nieuw Examen', ['create'], ['class' => 'btn btn-success']) ?>
+  &nbsp;
+  <?= Html::a('<span class="glyphicon glyphicon-edit">Planner</span>', ['/gesprek/overzicht'], ['class' => 'btn btn-info']) ?>
 </p>
 <br>
 <hr>
-Examenesprekken kunnen worden aangemaakt vanuit het <a href="/gesprek-soort/index">gesprekkenoverzicht</a>.
+<p>
+Examenesprekken kunnen worden aangemaakt vanuit het <?= Html::a('gesprekkenoverzicht', ['/gesprek-soort/index']) ?>.
+</p>
+<p>
+Nieuwe aanvragen voor gesprekken vinden plaats op het oudste actieve examen.
+</p>

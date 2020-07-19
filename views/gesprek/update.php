@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = 'Update';
 <div class="card">
   <div class="card-header">
     <h3><?= Html::encode($this->title) ?></h3>
-    <h3>Examen: <?= $examen->naam ?></h3>
+    Examen: <?= $examen->naam ?>
     <br>
   </div>
   <div class="card-body">

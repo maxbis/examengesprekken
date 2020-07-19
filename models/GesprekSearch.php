@@ -19,7 +19,7 @@ class GesprekSearch extends Gesprek
     public function rules()
     {
         return [
-            [['id', 'rolspeler_id', 'gesprek_soort_id', 'status'], 'integer'],
+            [['id', 'rolspeler_id', 'gesprek_soort_id', 'status', 'examen_id'], 'integer'],
             [['student_naam', 'lokaal', 'statusNaam'], 'safe'],
         ];
     }
@@ -70,6 +70,7 @@ class GesprekSearch extends Gesprek
             'rolspeler_id' => $this->rolspeler_id,
             'gesprek_soort_id' => $this->gesprek_soort_id,
             'status' => $this->status,
+            'examen_id' => $this->examen_id,
         ]);
 
         $query->andFilterWhere(['like', 'student_naam', $this->student_naam])

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\GesprekSoortSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Gesprek Soorts';
+$this->title = 'Gespreksoort';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="gesprek-soort-index">
@@ -41,6 +41,17 @@ $this->params['breadcrumbs'][] = $this->title;
             [
               'class' => 'yii\grid\ActionColumn',
               'contentOptions' => ['style' => 'width:100px; white-space: normal;'],
+              'buttons' => [
+                'delete' => function($url, $model){
+                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], [
+                        'class' => '',
+                        'data' => [
+                            'confirm' => 'LET OP! Alle gespreksaanvragen voor dit gepsrek zullen ook worden verwijderd, Weet je het heel zeker?',
+                            'method' => 'post',
+                        ],
+                    ]);
+                }
+              ],
             ],
         ],
     ]); ?>
@@ -48,11 +59,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <br>
 <p>
-  <?= Html::a('Create Gesprek Soort', ['create'], ['class' => 'btn btn-success']) ?>
+  <?= Html::a('Create Gespreksoort', ['create'], ['class' => 'btn btn-success']) ?>
 </p>
 <br>
 <hr>
-<p>Gesprekken worden gekoppeld aan examens door in het <a href="/examen/index/">examenoverzicht</a> op de
+<p>Gesprekken worden gekoppeld aan examens door in het <?= Html::a('examenoverzicht', ['/examen/index']) ?> op de
 examennaam te klikken.</p>
-<p>Gesprekken kunnen worden gekopiierd vanuit het edit view-scherm; klik op het oogje bij het gesprek dat je wilt
+<p>Gesprekken kunnen worden gekopieerd vanuit het edit view-scherm; klik op het oogje bij het gesprek dat je wilt
 kopieëren.</p>
+<p>Bij het verwijderen van gesprekken worden alle <?= Html::a('gesprekkenoverzicht', ['/gesprek/overzicht']) ?>
+ voor dit gesprekstype ook verwijderd</p>
+
+
+

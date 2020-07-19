@@ -32,12 +32,12 @@ class GesprekController extends Controller
 
         'rules' => [
               // when logged in, any user
-              [ 'actions' => ['index','view','create'],
+              [ 'actions' => ['create','bevestiging'],
                 'allow' => true,
                 'roles' => ['@']
               ],
               // only role == admin
-              [ 'actions' => ['update','delete','overzicht'],
+              [ 'actions' => [],
                 'allow' => true,
                 'roles' => ['@'],
                 'matchCallback' => function ($rule, $action)
@@ -64,35 +64,43 @@ class GesprekController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'examen' => $this->getActiefExamen(),
         ]);
     }
 
     public function actionOverzicht() {
 
-      //$role = Yii::$app->user->identity->role;
+        $this->view->title = 'Status Gesprekken';
+        $query = gesprek::find()
+            ->leftJoin('examen', 'examen.id = gesprek.examen_id')
+            ->where('examen.actief=1');
 
-      //d($role);
-
-      //if ($role != 'axdmin') {
-      //  return $this->redirect('site/login');
-      //}
-
-      $this->view->title = 'Status Gesprekken';
-      $query = gesprek::find();
-
-      $pagination = new Pagination([
+        $pagination = new Pagination([
           'defaultPageSize' => 20,
           'totalCount' => $query->count(),
-      ]);
+        ]);
 
-      $gesprekken = $query->orderBy('status')
+        $gesprekken = $query->orderBy('status')
           ->offset($pagination->offset)
           ->limit($pagination->limit)
           ->all();
 
-      return $this->render('overzicht', [
+        $examen = $this->getActiefExamen();
+
+        return $this->render('overzicht', [
           'gesprekken' => $gesprekken,
           'pagination' => $pagination,
+          'examen' => $examen,
+        ]);
+    }
+
+    public function actionBevestiging($id) {
+      $this->view->title = 'Bevestiging Gespreksaanvraag';
+      $gesprek = gesprek::findOne($id);
+
+      return $this->render('bevestiging', [
+        'gesprek' => gesprek::findOne($id),
+        'examen' => $this->getActiefExamen(),
       ]);
     }
 
@@ -118,9 +126,12 @@ class GesprekController extends Controller
     {
         $model = new Gesprek();
 
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+          $examen = $this->getActiefExamen();
+          $model->examen_id=$examen->id;
+          $model->save();
+          
+          return $this->redirect(['/gesprek/bevestiging','id'=>$model->id]);
         }
 
         $rolspelerList=[];
@@ -142,10 +153,14 @@ class GesprekController extends Controller
         ]);
     }
 
+    private function getActiefExamen() {
+      return examen::find()->where(['actief' => '1'])->orderBy(['datum_van' => 'SORT_DESC'])->one();
+    }
+
     private function getGesprekkenList() {
       // get firstactive examen (order by datum_van ASC) - get active exam...?
       // and get linked examen-gesprekken
-      $examen = examen::find()->where(['actief' => '1'])->orderBy(['datum_van' => 'SORT_DESC'])->one();
+      $examen = $this->getActiefExamen();
 
       $gesprekken = gesprekSoort::find()->where([ 'examen_id' => $examen['id'] ])->joinWith('examenGesprekSoorts')->all();
 
@@ -169,7 +184,7 @@ class GesprekController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+          return $this->redirect(['/gesprek/overzicht']);
         }
 
         [$examen, $gesprekkenList] = $this->getGesprekkenList();

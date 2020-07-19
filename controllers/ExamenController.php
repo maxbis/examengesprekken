@@ -16,6 +16,11 @@ use yii\filters\VerbFilter;
  */
 class ExamenController extends Controller
 {
+    public function init() {
+        if (Yii::$app->user->identity->role != 'admin') {
+            $this->redirect('/gesprek/create');
+        }
+    }
     /**
      * {@inheritdoc}
      */
@@ -40,9 +45,13 @@ class ExamenController extends Controller
         $searchModel = new ExamenSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        // actief examen
+        $examen = examen::find()->where(['actief' => '1'])->orderBy(['datum_van' => 'SORT_DESC'])->one();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'examen' => $examen,
         ]);
     }
 
@@ -157,7 +166,7 @@ class ExamenController extends Controller
 
     public function actionToggleActief($id) {
         // function toggles boolean actief
-        $sql="update examen set actief=!actief where id = :id";
+        $sql="update examen set actief=1 where id = :id; update examen set actief=0 where id != :id;";
         $params = array(':id'=> $id);
         Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
         return $this->redirect(['/examen/index']);

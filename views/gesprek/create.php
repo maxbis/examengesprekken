@@ -11,7 +11,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="gesprek-create">
 
-    <h1><?= Html::encode($this->title)." voor ".$examen['naam'];?></h1>
+    <h1>Gespreksaanvraag</h1>
+    voor: <?=$examen['naam']?>
+    <hr>
 
     <?= $this->render('_form', [
         'model' => $model,

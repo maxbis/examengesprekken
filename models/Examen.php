@@ -63,4 +63,10 @@ class Examen extends \yii\db\ActiveRecord
         // return $this->hasMany(GesprekSoort::className());
     }
 
+    // TODO not yet in use, still usefull?
+    public function getActiveExamen() {
+        $examen = examen::find()->where(['actief' => '1'])->orderBy(['datum_van' => 'SORT_DESC'])->one();
+        return $examen;
+    }
+
 }

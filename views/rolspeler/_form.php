@@ -18,7 +18,9 @@ use yii\widgets\ActiveForm;
 
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+      <?= Html::a('Cancel', ['/rolspeler/index'], ['class'=>'btn btn-primary']) ?>
+      &nbsp;&nbsp;&nbsp;
+      <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -3,27 +3,29 @@ use yii\helpers\Html;
 use yii\widgets\LinkPager;
 ?>
 
-<div class="card">
-  <div class="card-body">
-    <h3 class="card-title">Gesprekken Overzicht</h5>
+<div class="gesprek-overzicht">
+    <h1>Gespreksoverzicht</h1>
+    voor examen:  <a href="/examen/update?id=<?=$examen->id?>">
+                    <span class="bg-info text-white" ><?=$examen->naam?></span>
+                  </a>(<?=$examen->datum_van?> - <?=$examen->datum_tot?>)
 
-<table class="table" style="width: 100rem;" border=0>
+    <hr>
 
-  <tr>
+  <table class="table" style="width: 100rem;">
+
+    <tr>
+      <th scope="col" style="width: 5rem;">&nbsp;</th>
       <th scope="col" style="width: 15rem;">Student</th>
       <th scope="col" style="width: 5rem;">Lokaal</th>
       <th scope="col" style="width: 20rem;">Gesprek</th>
-
       <th scope="col" style="width: 10rem;">Rolspeler</th>
       <th scope="col" style="width: 10rem;">Status</th>
       <th scope="col" style="text-align: right;width: 10rem;">&nbsp;</th>
-
-  </tr>
+    </tr>
 
     <?php foreach ($gesprekken as $item): ?>
       <tr>
-        <?php $gesprek =  $item->gesprekSoort->kerntaak_nr.".".$item->gesprekSoort->gesprek_nr." ".$item->gesprekSoort->gesprek_naam;
-        ?>
+        <?php $gesprek = $item->gesprekSoort->kerntaak_nr.".".$item->gesprekSoort->gesprek_nr." ".$item->gesprekSoort->gesprek_naam;?>
 
         <?php if ($item->status == 1): // loopt ?>
           <?php $style="font-weight:bold; color:#349101;" ?>
@@ -33,47 +35,61 @@ use yii\widgets\LinkPager;
           <?php $style="color:#d90202; font-weight:bold;" ?>
         <?php endif;?>
 
+        <td>
+          <a href="update?id=<?=$item->id?>" ><span class="glyphicon glyphicon-edit"></span></a>
+        </td>
+
         <td style="<?=$style?>"><?= $item->student_naam ?></td>
         <td style="<?=$style?>"><?= $item->lokaal ?></td>
         <td style="<?=$style?>"><?= $gesprek ?></td>
+        
         <form action="/gesprek/update-regel">
-        <input type="hidden" id="id" name="id" value=<?= $item->id  ?>>
+          <input type="hidden" id="id" name="id" value=<?= $item->id  ?>>
           <td>
-            <select name="rolspeler" id="rolspeler">
-            <?php foreach($item->allRolspelers as $itemList):
 
-              if ($itemList->id == $item->rolspeler_id) {
-                $select = 'selected';
-              } else {
-                $select = '';
-              } ?>
-              <option value= <?= $itemList->id ?> <?= $select ?> ><?= $itemList->naam ?></option>
-            <?php endforeach ?>
+            <select name="rolspeler" id="rolspeler">
+              <?php foreach($item->allRolspelers as $itemList):
+                if ($itemList->id == $item->rolspeler_id) {
+                  $select = 'selected';
+                } else {
+                  $select = '';
+                } ?>
+                <option value= <?= $itemList->id ?> <?= $select ?> ><?= $itemList->naam ?></option>
+              <?php endforeach ?>
             </select>
-          </td><td>
+          </td>
+          <td>
+
             <select name="status" id="status">
               <?php
-                $status=['wachten','Loopt','Klaar'];
-                for($i=0;$i<=2;$i++):
+                $status=['Wachten','Loopt','Klaar'];
+                for($i=0;$i<=2;$i++) {
                   if ($i == $item->status) {
                     $select = 'selected';
                   } else {
                     $select = '';
-                  } ?>
+                  }
+                ?>
                   <option value=<?= $i ?> <?= $select ?> > <?= $status[$i] ?> </option>
-                <?php endfor ?>
-
+                <?php };
+              ?>
             </select>
-        </td><td>
-          <input type="submit" value="Update">
-        </td>
+          </td>
+          <td>
+            <input type="submit" value="Update">
+          </td>
         </form>
       </tr>
     <?php endforeach; ?>
-
-</table>
-
-</div>
+  </table>
 </div>
 
 <?= LinkPager::widget(['pagination' => $pagination]) ?>
+
+<hr>
+<br>
+<p>
+  &nbsp;
+  <?= Html::a('<span class="glyphicon glyphicon-list-alt"> Examens</span>', ['/examen/index'], ['class' => 'btn btn-info']) ?>
+</p>
+<br>

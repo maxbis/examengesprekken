@@ -35,7 +35,7 @@ class gesprek extends \yii\db\ActiveRecord
     {
         return [
             [['student_naam', 'lokaal', 'rolspeler_id', 'gesprek_soort_id', 'status'], 'required'],
-            [['rolspeler_id', 'gesprek_soort_id', 'status'], 'integer'],
+            [['rolspeler_id', 'gesprek_soort_id', 'status', 'examen_id'], 'integer'],
             [['student_naam'], 'string', 'max' => 100],
             [['lokaal'], 'string', 'max' => 10],
             [['gesprek_soort_id'], 'exist', 'skipOnError' => true, 'targetClass' => GesprekSoort::className(), 'targetAttribute' => ['gesprek_soort_id' => 'id']],
@@ -55,6 +55,7 @@ class gesprek extends \yii\db\ActiveRecord
             'rolspeler_id' => 'Rolspeler ID',
             'gesprek_soort_id' => 'Gesprek Soort ID',
             'status' => 'Status',
+            'examen_id' => 'examen ID',
         ];
     }
 

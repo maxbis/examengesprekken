@@ -22,15 +22,16 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-</head>
+</head> 
 <body>
 
 <?php $this->beginBody() ?>
 
 <?php
+
 NavBar::begin([
-    'brandLabel' => '<img src="/planner.jpg" >',
-    'brandUrl' => '/examen/index',
+    'brandLabel' => Html::img('@web/planner.jpg'),
+    'brandUrl' => Yii::$app->homeUrl,
     'options' => [
         //'class' => 'navbar-inverse navbar-fixed-top',
         'class' => 'navbar navbar-expand-sm bg-light',
@@ -46,8 +47,9 @@ echo Nav::widget([
         [   'label' => 'Docent',
             //'class'=>'bootstrap.widgets.BootMenu',
             //'htmlOptions'=>array('style'=>'font-size: 2.5em'),
+            'visible' => (Yii::$app->user->identity->role == 'admin'),
             'items' => [
-                 ['label' => 'Examens', 'url' => ['/examen/index']],
+                 ['label' => 'Examens', 'url' => ['/examen/index'] ],
                  ['label' => 'Gesprektypen', 'url' => ['/gesprek-soort/index']],
                  ['label' => 'Rolspelers', 'url' => ['/rolspeler/index']],
                  ['label' => 'Gesprekken', 'url' => ['/gesprek/index']],

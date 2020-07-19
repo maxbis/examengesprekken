@@ -14,6 +14,11 @@ use yii\filters\VerbFilter;
  */
 class RolspelerController extends Controller
 {
+    public function init() {
+        if (Yii::$app->user->identity->role != 'admin') {
+            $this->redirect('/gesprek/create');
+        }
+    }
     /**
      * {@inheritdoc}
      */
@@ -25,6 +30,7 @@ class RolspelerController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+                
             ],
         ];
     }
@@ -123,5 +129,21 @@ class RolspelerController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionToggleActief($id) {
+        // function toggles boolean actief
+        $sql="update rolspeler set actief=!actief where id = :id";
+        $params = array(':id'=> $id);
+        Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
+        return $this->redirect(['/rolspeler/index']);
+    }
+
+    public function actionSelect($all) {
+        //if ($all) $all=1; // change any value (except 0) to 1
+        $sql="update rolspeler set actief=:all";
+        $params = array(':all'=> $all);
+        Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
+        return $this->redirect(['index']);
     }
 }

@@ -14,6 +14,12 @@ use yii\filters\VerbFilter;
  */
 class GesprekSoortController extends Controller
 {
+    public function init() {
+        if (Yii::$app->user->identity->role != 'admin') {
+            $this->redirect('/gesprek/create');
+        }
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -25,6 +31,7 @@ class GesprekSoortController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+
             ],
         ];
     }

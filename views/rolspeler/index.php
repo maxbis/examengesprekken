@@ -11,13 +11,23 @@ use yii\grid\GridView;
 $this->title = 'Rolspelers';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="rolspeler-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="d-flex justify-content-between">
+        <div class="p-2">
+            <h1>Rolspelers</h1>
+        </div>
+        <div class="mt-auto p-2">
+            Selecteer:
+            <a class="btn btn-success" role="button" href="select?all=1">Allen</a>
+            &nbsp;
+            <a class="btn btn-primary" role="button" href="select?all=0">Geen</a>
+            &nbsp;
+        </div>
+    </div>
 
-    <p>
-        <?= Html::a('Create Rolspeler', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <hr>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -27,13 +37,38 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             // ['class' => 'yii\grid\SerialColumn'],
 
-            // 'id',
-            'naam',
-            'actief',
+            [
+                'attribute'=>'naam',
+                'contentOptions' => ['style' => 'width:400px; white-space: normal;'],
+                'format' => 'raw',
+                'value' => function ($data) {
+                  return Html::a($data->naam, '/rolspeler/update?id='.$data->id);
+                },  
+            ],
+            [
+                'attribute'=>'actief',
+                'contentOptions' => ['style' => 'width:10px; white-space: normal;'],
+                'format' => 'raw',
+                'value' => function ($data) {
+                  $status = $data->actief ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-minus"></span>';
+                  return Html::a($status, '/rolspeler/toggle-actief?id='.$data->id);
+                }
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => 'width:10px;'],
+                'template' => '{delete} {update}',
+            ],
         ],
     ]); ?>
 
 
 </div>
+<br>
+<p>
+    <?= Html::a('Nieuwe Rolspeler', ['create'], ['class' => 'btn btn-success']) ?>
+</p>
+<br>
+<hr>
+<p>Rolspelers die actief zijn kunnen worden toegekend aan een gespreksaanvraag.</p>

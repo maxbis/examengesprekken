@@ -11,37 +11,44 @@ use app\models\Rolspeler;
 ?>
 
 
-
 <div class="gesprek-form">
-
     <?php $form = ActiveForm::begin(); ?>
+    <br>
 
     <div class="row">
-      <div class="col-sm-2">
-
-        <?= $form->field($model, 'student_naam')->textInput(['maxlength' => true]) ?>
-
-      </div><div class="col-sm-2">
-
-        <?= $form->field($model, 'lokaal')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'rolspeler_id')->hiddenInput(['value'=>'1'])->label(false); ?>
-
-        <?= $form->field($model, 'status')->hiddenInput(['value'=>'0'])->label(false); ?>
-
+      
+      <div class="col-sm-4">
+        <?= $form->field($model, 'student_naam')->textInput(['maxlength' => true])->label('Voor- en achternaam') ?>
       </div>
+
+      <div class="col-sm-4">
+        <?= $form->field($model, 'lokaal')->textInput(['maxlength' => true])->label('Lokaal (waar je nu zit)') ?>
+        <?= $form->field($model, 'rolspeler_id')->hiddenInput(['value'=>'1'])->label(false); ?>
+        <?= $form->field($model, 'status')->hiddenInput(['value'=>'0'])->label(false); ?>
+      </div>
+
     </div>
     
     <div class="row">
       <div class="col-sm-8">
-        <?= $form->field($model, 'gesprek_soort_id')->dropDownList($gesprekkenList) ?>
+        <?= $form->field($model, 'gesprek_soort_id')->dropDownList($gesprekkenList)->label('Kies juiste gesprek') ?>
       </div>
     </div>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <br><br>
+
+    <div class="row">
+      <div class="col-sm-8">
+
+          <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+          &nbsp;
+          <?= Html::a('Cancel', ['/gesprek/overzicht'], ['class'=>'btn btn-primary']) ?>
+ 
+      </div>
+
     </div>
-
-    <?php ActiveForm::end(); ?>
-
+  </div>
+  <?php ActiveForm::end(); ?>
 </div>
+
+
