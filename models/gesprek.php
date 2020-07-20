@@ -36,8 +36,9 @@ class gesprek extends \yii\db\ActiveRecord
         return [
             [['student_naam', 'lokaal', 'rolspeler_id', 'gesprek_soort_id', 'status'], 'required'],
             [['rolspeler_id', 'gesprek_soort_id', 'status', 'examen_id'], 'integer'],
-            [['student_naam'], 'string', 'max' => 100],
+            [['student_naam'], 'string', 'min' => 8, 'max' => 100],
             [['lokaal'], 'string', 'max' => 10],
+            [['lokaal'], 'trim'],
             [['gesprek_soort_id'], 'exist', 'skipOnError' => true, 'targetClass' => GesprekSoort::className(), 'targetAttribute' => ['gesprek_soort_id' => 'id']],
             [['rolspeler_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rolspeler::className(), 'targetAttribute' => ['rolspeler_id' => 'id']],
         ];
@@ -81,7 +82,7 @@ class gesprek extends \yii\db\ActiveRecord
 
     public function getAllRolspelers()
     {
-        rolspeler::find()->all();
+        // rolspeler::find()->all();
         return rolspeler::find()->where(['actief' => '1'])->all();;
     }
 

@@ -45,17 +45,31 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['style' => 'width:10px; white-space: normal;'],
                 'value' => 'examen_id',
             ],
-            [ 'attribute' => 'statusNaam',
-              'value' => 'statusNaam.naam'
+            [   'attribute' => 'statusNaam',
+                'contentOptions' => ['style' => 'width:10px; white-space: normal;'],
+                'value' => 'statusNaam.naam'
             ],
-            'student_naam',
-            'lokaal',
-            'rolspeler.naam',
-            'gespreksNaam.gesprek_naam',
-
+            [   'attribute' => 'student_naam',
+                'contentOptions' => ['style' => 'width:200px; white-space: normal;'],
+            ],
+            [   'attribute' => 'lokaal',
+                'contentOptions' => ['style' => 'width:40px; white-space: normal;'],
+            ],
+            [   'attribute' => 'rolspeler.naam',
+                'contentOptions' => ['style' => 'width:200px; white-space: normal;'],
+            ],
+            [   'attribute' => 'Gesprekstype',
+                'contentOptions' => ['style' => 'width:160px; white-space: normal;'],
+                'value' => 'gespreksNaam.gesprek_naam'
+            ],
+            [   'attribute' => 'created',
+                'contentOptions' => ['style' => 'width:160px; white-space: normal;'],
+            ],
             [   
                 'class' => 'yii\grid\ActionColumn',
                 'visible' => ($identity == 'admin'),
+                'template' => '{update} {delete}',
+                'contentOptions' => ['style' => 'width:40px; white-space: normal;'],
             ],
 
             //[

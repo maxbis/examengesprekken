@@ -1,10 +1,11 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\LinkPager;
 ?>
 
 <div class="gesprek-overzicht">
-    <h1>Gespreksoverzicht</h1>
+    <h1>Gespreksplanner</h1>
     voor examen:  <a href="/examen/update?id=<?=$examen->id?>">
                     <span class="bg-info text-white" ><?=$examen->naam?></span>
                   </a>(<?=$examen->datum_van?> - <?=$examen->datum_tot?>)
@@ -43,7 +44,8 @@ use yii\widgets\LinkPager;
         <td style="<?=$style?>"><?= $item->lokaal ?></td>
         <td style="<?=$style?>"><?= $gesprek ?></td>
         
-        <form action="/gesprek/update-regel">
+        <!-- <form action="/gesprek/update-regel"> -->
+        <form action=<?=Url::toRoute(['gesprek/update-regel'])?>>
           <input type="hidden" id="id" name="id" value=<?= $item->id  ?>>
           <td>
 

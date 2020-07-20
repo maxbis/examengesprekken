@@ -31,7 +31,7 @@ class rolspeler extends \yii\db\ActiveRecord
         return [
             [['naam', 'actief'], 'required'],
             [['actief'], 'integer'],
-            [['naam'], 'string', 'max' => 100],
+            [['naam'], 'string', 'min' => 5, 'max' => 100],
         ];
     }
 

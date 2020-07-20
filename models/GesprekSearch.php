@@ -71,6 +71,7 @@ class GesprekSearch extends Gesprek
             'gesprek_soort_id' => $this->gesprek_soort_id,
             'status' => $this->status,
             'examen_id' => $this->examen_id,
+            'created' => $this->created,
         ]);
 
         $query->andFilterWhere(['like', 'student_naam', $this->student_naam])

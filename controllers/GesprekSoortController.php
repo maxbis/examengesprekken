@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\GesprekSoort;
+use app\models\gesprek;
 use app\models\GesprekSoortSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -78,7 +79,7 @@ class GesprekSoortController extends Controller
         $model = new GesprekSoort();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -114,11 +115,23 @@ class GesprekSoortController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
+    public function actionDelete($id, $confirm='')
+    {   
+        // zijn er gesprekken gekoppeld?
+        $count=gesprek::find()->where(['gesprek_soort_id' => $id])->count();
 
-        return $this->redirect(['index']);
+        // als er gesprekken zijn gekoppeld en ik heb nog geen confirmatie dan vraag om confirmatie
+        if ( $count and ! $confirm) {
+            $this->view->title = 'Bevestig delete'; // waarom werkt dit niet?
+            return $this->render('confirm', [
+                'model' => $this->findModel($id),
+                'count' => $count,
+            ]);
+        } else {
+            //$this->findModel($id)->delete();
+            return $this->redirect(['index']);
+        }
+        
     }
 
     /**

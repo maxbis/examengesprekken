@@ -54,6 +54,7 @@ echo Nav::widget([
                  ['label' => 'Rolspelers', 'url' => ['/rolspeler/index']],
                  ['label' => 'Gesprekken', 'url' => ['/gesprek/index']],
                  ['label' => 'Planner', 'url' => ['/gesprek/overzicht']],
+                 ['label' => 'Help', 'url' => ['/examen/help']],
             ],
             'options' => ['class' => 'nav-item']
         ],

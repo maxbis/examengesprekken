@@ -47,7 +47,8 @@ use nex\datepicker\DatePicker;
         </div>
       </div>
 
-    <?= $form->field($model, 'actief')->checkbox(); ?>
+
+    <?= $form->field($model, 'actief')->hiddenInput(['value'=> 0 ])->label(false); ?>
 
     <?php if (isset($gesprek)): ?>
       <h2>Gesprekken</h2>

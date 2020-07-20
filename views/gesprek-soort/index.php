@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], [
                         'class' => '',
                         'data' => [
-                            'confirm' => 'LET OP! Alle gespreksaanvragen voor dit gepsrek zullen ook worden verwijderd, Weet je het heel zeker?',
+                            'confirm' => 'LET OP! Alle gesprekken (gesprekaanvragen) voor dit type gepsrek zullen ook worden verwijderd, Weet je het heel zeker?',
                             'method' => 'post',
                         ],
                     ]);
@@ -67,8 +67,8 @@ $this->params['breadcrumbs'][] = $this->title;
 examennaam te klikken.</p>
 <p>Gesprekken kunnen worden gekopieerd vanuit het edit view-scherm; klik op het oogje bij het gesprek dat je wilt
 kopieëren.</p>
-<p>Bij het verwijderen van gesprekken worden alle <?= Html::a('gesprekkenoverzicht', ['/gesprek/overzicht']) ?>
- voor dit gesprekstype ook verwijderd</p>
+<p>Let op: bij het verwijderen van gesprekken worden alle <?= Html::a('gesprekken', ['/gesprek/overzicht']) ?>
+ van dit gesprekstype ook verwijderd!</p>
 
 
 

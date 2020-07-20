@@ -33,7 +33,7 @@ class gesprekSoort extends \yii\db\ActiveRecord
     {
         return [
             [['kerntaak_nr', 'kerntaak_naam', 'gesprek_nr', 'gesprek_naam'], 'required'],
-            [['kerntaak_nr', 'gesprek_nr'], 'integer'],
+            [['kerntaak_nr', 'gesprek_nr'], 'integer', 'min'=>1, 'max'=>10],
             [['kerntaak_naam', 'gesprek_naam'], 'string'],
         ];
     }

@@ -16,7 +16,7 @@ class RolspelerController extends Controller
 {
     public function init() {
         if (Yii::$app->user->identity->role != 'admin') {
-            $this->redirect('/gesprek/create');
+            $this->redirect(['/gesprek/create']);
         }
     }
     /**
@@ -43,7 +43,7 @@ class RolspelerController extends Controller
     {
         $searchModel = new RolspelerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

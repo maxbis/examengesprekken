@@ -46,7 +46,7 @@ class ExamenController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         // actief examen
-        $examen = examen::find()->where(['actief' => '1'])->orderBy(['datum_van' => 'SORT_DESC'])->one();
+        $examen = examen::find()->where(['actief' => '1'])->one();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -170,6 +170,10 @@ class ExamenController extends Controller
         $params = array(':id'=> $id);
         Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
         return $this->redirect(['/examen/index']);
+    }
+
+    public function actionHelp() {
+        return $this->render('help');
     }
 
 }

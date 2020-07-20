@@ -154,7 +154,8 @@ class GesprekController extends Controller
     }
 
     private function getActiefExamen() {
-      return examen::find()->where(['actief' => '1'])->orderBy(['datum_van' => 'SORT_DESC'])->one();
+      return examen::find()->where(['actief' => '1'])->one();
+      // return examen::findAll('actief=1'); // does not work??
     }
 
     private function getGesprekkenList() {
@@ -229,10 +230,12 @@ class GesprekController extends Controller
     public function actionUpdateRegel($id, $rolspeler, $status){
         //d($_GET);
 
-        $sql="update gesprek set rolspeler_id=:rolspeler, status=:status where id=:id";
-        $params = array(':id'=> $id, ':rolspeler' => $rolspeler, ':status' => $status );
-        Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
+        //$sql="update gesprek set rolspeler_id=:rolspeler, status=:status where id=:id";
+        //$params = array(':id'=> $id, ':rolspeler' => $rolspeler, ':status' => $status );
+        //Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
 
-        $this->redirect('/gesprek/overzicht');
+        Yii::$app->db->createCommand()->update('gesprek', ['rolspeler_id'=>$rolspeler, 'status'=>$status], 'id='.$id)->execute();
+
+        $this->redirect(['/gesprek/overzicht']);
     }
 }

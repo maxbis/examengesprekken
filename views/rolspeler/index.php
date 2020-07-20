@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['style' => 'width:10px; white-space: normal;'],
                 'format' => 'raw',
                 'value' => function ($data) {
-                  $status = $data->actief ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-minus"></span>';
+                  $status = $data->actief ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-msnus"></span>';
                   return Html::a($status, '/rolspeler/toggle-actief?id='.$data->id);
                 }
             ],

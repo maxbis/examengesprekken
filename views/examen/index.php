@@ -97,6 +97,3 @@ $this->params['breadcrumbs'][] = $this->title;
 <p>
 Examenesprekken kunnen worden aangemaakt vanuit het <?= Html::a('gesprekkenoverzicht', ['/gesprek-soort/index']) ?>.
 </p>
-<p>
-Nieuwe aanvragen voor gesprekken vinden plaats op het oudste actieve examen.
-</p>
