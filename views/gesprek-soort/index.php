@@ -77,6 +77,3 @@ examennaam te klikken.</p>
 <p>Gesprekken kunnen worden gekopieerd. Klik op het copy-icoontje voor de delete.</p>
 <p>Let op: bij het verwijderen van gesprekken worden alle <?= Html::a('gesprekken', ['/gesprek/overzicht']) ?>
  van dit gesprekstype ook verwijderd!</p>
-
-
-
