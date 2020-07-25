@@ -30,7 +30,7 @@ AppAsset::register($this);
 <?php
 
 NavBar::begin([
-    'brandLabel' => Html::img('@web/planner.jpg'),
+    'brandLabel' => Html::img(['@web/planner.jpg']),
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
         //'class' => 'navbar-inverse navbar-fixed-top',
