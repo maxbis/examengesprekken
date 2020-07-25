@@ -47,7 +47,11 @@ class GesprekSoortSearch extends GesprekSoort
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [ 'attributes' => ['kerntaak_nr', 'gesprek_naam','gesprek_nr','kerntaak_naam'],
+                        'defaultOrder' => ['kerntaak_nr' => SORT_ASC, 'gesprek_nr' => SORT_ASC]
+            ],
         ]);
+        // $dataProvider->sort = ['defaultOrder' =>['kerntaak_nr' => SORT_ASC, 'gesprek_nr' => SORT_ASC]];
 
         $this->load($params);
 
@@ -65,7 +69,7 @@ class GesprekSoortSearch extends GesprekSoort
         ]);
 
         $query->andFilterWhere(['like', 'kerntaak_naam', $this->kerntaak_naam])
-            ->andFilterWhere(['like', 'gesprek_naam', $this->gesprek_naam]);
+              ->andFilterWhere(['like', 'gesprek_naam', $this->gesprek_naam]);
 
         return $dataProvider;
     }

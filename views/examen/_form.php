@@ -13,7 +13,9 @@ use nex\datepicker\DatePicker;
 <div class="examen-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
       <div class="row">
+
         <div class="col-sm-6">
           <?= $form->field($model, 'naam')->textInput(['maxlength' => true]) ?>
         </div>
@@ -45,10 +47,12 @@ use nex\datepicker\DatePicker;
               ]);
           ?>
         </div>
+           
       </div>
 
+ 
 
-    <?= $form->field($model, 'actief')->hiddenInput(['value'=> 0 ])->label(false); ?>
+    <?= $form->field($model, 'actief')->hiddenInput()->label(false); ?>
 
     <?php if (isset($gesprek)): ?>
       <h2>Gesprekken</h2>
@@ -98,4 +102,4 @@ use nex\datepicker\DatePicker;
 </div>
 
 <br>
-Examenesprekken kunnen worden aangemaakt vanuit het <a href="/gesprek-soort/index">gesprekkenoverzicht</a>.
+Examenesprekken kunnen worden aangemaakt vanuit het <?= Html::a('gesprekkenoverzicht', ['/gesprek-soort/index']) ?>.

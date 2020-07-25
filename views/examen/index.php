@@ -13,7 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="examen-index">
 
   <h1><?= Html::encode($this->title) ?></h1>
-  Open voor gespreksaanvragen: <span style="text-decoration:underline;" class="" > <?= $examen->naam ?> </span>
+  <?php $examenNaam = $examen->naam ?? "-"; ?>
+  Open voor gespreksaanvragen: <span style="text-decoration:underline;" class="" > <?= $examenNaam ?> </span>
   <hr>
 
   <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -33,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'format' => 'raw',
             'value' => function ($data) {
               $status = $data->actief ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-minus"></span>';
-              return Html::a($status, '/examen/toggle-actief?id='.$data->id,['title'=> 'Toggle Status',]);
+              return Html::a($status, ['/examen/toggle-actief?id='.$data->id],['title'=> 'Toggle Status',]);
             }
           ],
           [
@@ -67,6 +68,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'class' => 'yii\grid\ActionColumn',
             'contentOptions' => ['style' => 'width:50px;'],
             'template' => '{delete}', 
+            'visibleButtons'=>[
+              'delete'=> function($model){
+                    return $model->actief!=1;
+               },
+              ],
             'buttons' => [
               'delete' => function($url, $model){
                   return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], [

@@ -17,10 +17,11 @@ use yii\filters\VerbFilter;
 class ExamenController extends Controller
 {
     public function init() {
-        if (Yii::$app->user->identity->role != 'admin') {
-            $this->redirect('/gesprek/create');
+        if (! isset(yii::$app->user->identity->role) || Yii::$app->user->identity->role != 'admin') {
+            $this->redirect(['/site/login']);
         }
     }
+
     /**
      * {@inheritdoc}
      */

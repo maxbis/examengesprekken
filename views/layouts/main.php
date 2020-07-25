@@ -47,7 +47,7 @@ echo Nav::widget([
         [   'label' => 'Docent',
             //'class'=>'bootstrap.widgets.BootMenu',
             //'htmlOptions'=>array('style'=>'font-size: 2.5em'),
-            'visible' => (Yii::$app->user->identity->role == 'admin'),
+            'visible' => (isset(Yii::$app->user->identity->role) && Yii::$app->user->identity->role == 'admin'),
             'items' => [
                  ['label' => 'Examens', 'url' => ['/examen/index'] ],
                  ['label' => 'Gesprekssoort', 'url' => ['/gesprek-soort/index']],

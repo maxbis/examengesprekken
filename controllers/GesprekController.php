@@ -24,6 +24,12 @@ use yii\filters\AccessControl;
  */
 class GesprekController extends Controller
 {
+  public function init() {
+    if (! isset(yii::$app->user->identity->role) || Yii::$app->user->identity->role != 'admin') {
+        $this->redirect(['/site/login']);
+    }
+  }
+
     /**
      * {@inheritdoc}
      */

@@ -24,11 +24,11 @@ $this->params['breadcrumbs'][] = $this->title;
             // ['class' => 'yii\grid\SerialColumn'],
             [
               'attribute'=>'kerntaak_nr',
-              'contentOptions' => ['style' => 'width:10px; white-space: normal;'],
+              'contentOptions' => ['style' => 'width:10px;'],
             ],
             [
               'attribute'=>'kerntaak_naam',
-              'contentOptions' => ['style' => 'width:600px; white-space: normal;'],
+              'contentOptions' => ['style' => 'width:600px;'],
               'format' => 'raw',
               'value' => function ($data) {
                 return Html::a($data->kerntaak_naam, ['update?id='.$data->id],['title' => 'Edit',]);
@@ -36,15 +36,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
               'attribute'=>'gesprek_nr',
-              'contentOptions' => ['style' => 'width:20px; white-space: normal;'],
+              'contentOptions' => ['style' => 'width:20px;'],
             ],
             [
               'attribute'=>'gesprek_naam',
-              'contentOptions' => ['style' => 'width:300px; white-space: normal;'],
+              'contentOptions' => ['style' => 'width:300px;'],
             ],
             [
               'class' => 'yii\grid\ActionColumn',
-              'contentOptions' => ['style' => 'width:80px; white-space: normal;'],
+              'contentOptions' => ['style' => 'width:80px;'],
               'template' => '{copy} - {delete}',
               'buttons' => [
                 'delete' => function($url, $model){

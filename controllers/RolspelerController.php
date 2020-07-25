@@ -15,8 +15,8 @@ use yii\filters\VerbFilter;
 class RolspelerController extends Controller
 {
     public function init() {
-        if (Yii::$app->user->identity->role != 'admin') {
-            $this->redirect(['/gesprek/create']);
+        if (! isset(yii::$app->user->identity->role) || Yii::$app->user->identity->role != 'admin') {
+            $this->redirect(['/site/login']);
         }
     }
     /**
@@ -93,7 +93,7 @@ class RolspelerController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

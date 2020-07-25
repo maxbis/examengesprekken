@@ -73,8 +73,11 @@ use app\models\Rolspeler;
     <div class="row">
       <div class="col-sm-8">
 
-        <?= Html::a('Cancel', [basename($cancel)], ['class'=>'btn btn-primary']) ?>
-        &nbsp;
+        <?php if (isset($cancel)): ?>
+          <?= Html::a('Cancel', [basename($cancel)], ['class'=>'btn btn-primary']) ?>
+          &nbsp;
+        <?php endif; ?>
+        
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
  
       </div>

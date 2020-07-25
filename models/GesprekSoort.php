@@ -45,8 +45,8 @@ class gesprekSoort extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'kerntaak_nr' => 'Kerntaak Nr',
-            'kerntaak_naam' => 'Kerntaak Naam',
+            'kerntaak_nr' => 'KT Nr',
+            'kerntaak_naam' => 'KT Naam',
             'gesprek_nr' => 'Gesprek Nr',
             'gesprek_naam' => 'Gesprek Naam',
         ];

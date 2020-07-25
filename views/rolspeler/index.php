@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['style' => 'width:400px; white-space: normal;'],
                 'format' => 'raw',
                 'value' => function ($data) {
-                  return Html::a($data->naam, '/rolspeler/update?id='.$data->id,['title' => 'Edit',]);
+                  return Html::a($data->naam, ['/rolspeler/update?id='.$data->id],['title' => 'Edit',]);
                 },  
             ],
             [
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => [''=> 'alles', '0'=>'Inactief','1'=>'Actief'],
                 'value' => function ($data) {
                   $status = $data->actief ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-minus"></span>';
-                  return Html::a($status, '/rolspeler/toggle-actief?id='.$data->id, ['title' => 'Actief <-> Inactief',]);
+                  return Html::a($status, ['/rolspeler/toggle-actief?id='.$data->id], ['title' => 'Actief <-> Inactief',]);
                 }
             ],
 
