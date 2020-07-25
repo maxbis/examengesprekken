@@ -9,7 +9,7 @@ use app\models\rolspeler;
 /**
  * RolspelerSearch represents the model behind the search form of `app\models\rolspeler`.
  */
-class RolspelerSearch extends rolspeler
+class RolspelerSearch extends Rolspeler
 {
     /**
      * {@inheritdoc}
