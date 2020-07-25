@@ -32,5 +32,5 @@ $this->params['breadcrumbs'][] = $this->title;
   </div>
 </div>
 
-<br>
-
+<br><br>
+<?= Html::a('Nieuwe Gespreksaanvraag', ['/gesprek/create'], ['class' => 'btn btn-success']) ?>

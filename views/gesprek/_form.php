@@ -34,39 +34,41 @@ use app\models\Rolspeler;
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-sm-2">
-      <label class="control-label" >Rolspeler</label><br>
-        <select name="gesprek[rolspeler_id]" id="rolspeler">
-          <?php foreach($model->allRolspelers as $itemList):
-            if ($itemList->id == $model->rolspeler_id) {
-              $select = 'selected';
-            } else {
-              $select = '';
-            } ?>
-            <option value= <?= $itemList->id ?> <?= $select ?> ><?= $itemList->naam ?></option>
-          <?php endforeach ?>
-        </select>
-      </div>
-    
-      <div class="col-sm-2">
-      <label class="control-label" >Status</label><br>
-        <select name="gesprek[status]" id="status">
-          <?php
-            $status=['Wachten','Loopt','Klaar'];
-            for($i=0;$i<=2;$i++) {
-              if ($i == $model->status) {
+    <?php if (isset(yii::$app->user->identity->role) && Yii::$app->user->identity->role == 'admin'): ?>
+      <div class="row">
+        <div class="col-sm-2">
+        <label class="control-label" >Rolspeler</label><br>
+          <select name="gesprek[rolspeler_id]" id="rolspeler">
+            <?php foreach($model->allRolspelers as $itemList):
+              if ($itemList->id == $model->rolspeler_id) {
                 $select = 'selected';
               } else {
                 $select = '';
-              }
+              } ?>
+              <option value= <?= $itemList->id ?> <?= $select ?> ><?= $itemList->naam ?></option>
+            <?php endforeach ?>
+          </select>
+        </div>
+      
+        <div class="col-sm-2">
+        <label class="control-label" >Status</label><br>
+          <select name="gesprek[status]" id="status">
+            <?php
+              $status=['Wachten','Loopt','Klaar'];
+              for($i=0;$i<=2;$i++) {
+                if ($i == $model->status) {
+                  $select = 'selected';
+                } else {
+                  $select = '';
+                }
+              ?>
+              <option value=<?= $i ?> <?= $select ?> > <?= $status[$i] ?> </option>
+              <?php };
             ?>
-            <option value=<?= $i ?> <?= $select ?> > <?= $status[$i] ?> </option>
-            <?php };
-          ?>
-        </select>
+          </select>
+        </div>
       </div>
-    </div>
+    <?php endif; ?>
 
     <br><br>
 

@@ -24,11 +24,6 @@ use yii\filters\AccessControl;
  */
 class GesprekController extends Controller
 {
-  public function init() {
-    if (! isset(yii::$app->user->identity->role) || Yii::$app->user->identity->role != 'admin') {
-        $this->redirect(['/site/login']);
-    }
-  }
 
     /**
      * {@inheritdoc}
@@ -41,7 +36,7 @@ class GesprekController extends Controller
 
         'rules' => [
               // when logged in, any user
-              [ 'actions' => ['create','bevestiging'],
+              [ 'actions' => ['create','bevestiging','empty'],
                 'allow' => true,
                 'roles' => ['@']
               ],
@@ -252,5 +247,12 @@ class GesprekController extends Controller
         Yii::$app->db->createCommand()->update('gesprek', ['rolspeler_id'=>$rolspeler, 'status'=>$status], 'id='.$id)->execute();
 
         $this->redirect(['/gesprek/overzicht']);
+    }
+
+    public function actionEmpty()
+    {
+        return $this->render( 'empty',
+          [ 'examen' => $this->getActiefExamen() ]
+        );
     }
 }
