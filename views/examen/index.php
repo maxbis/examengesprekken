@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="examen-index">
 
   <h1><?= Html::encode($this->title) ?></h1>
-  Open voor gespreksaanvragen: <span class="bg-secondary text-white" > <?= $examen->naam ?> </span>
+  Open voor gespreksaanvragen: <span style="text-decoration:underline;" class="" > <?= $examen->naam ?> </span>
   <hr>
 
   <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -29,11 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
           ],
           [
             'attribute'=>'actief',
-            'contentOptions' => ['style' => 'width:20px; white-space: normal;'],
+            'contentOptions' => ['style' => 'width:20px;'],
             'format' => 'raw',
             'value' => function ($data) {
               $status = $data->actief ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-minus"></span>';
-              return Html::a($status, '/examen/toggle-actief?id='.$data->id);
+              return Html::a($status, '/examen/toggle-actief?id='.$data->id,['title'=> 'Toggle Status',]);
             }
           ],
           [
@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'contentOptions' => ['style' => 'width:600px; white-space: normal;'],
             'format' => 'raw',
             'value' => function ($data) {
-              return Html::a($data->naam, ['/examen/update?id='.$data->id]);
+              return Html::a($data->naam, ['/examen/update?id='.$data->id],['title'=> 'Edit',]);
             },
           ],
           [
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'value' => function ($data) {
               return Html::a('<span class="glyphicon glyphicon-play"></span>',
               ['/gesprek/index?GesprekSearch[statusNaam]=&GesprekSearch[student_naam]=&GesprekSearch[lokaal]=
-              &GesprekSearch[examen_id]='.$data->id]);
+              &GesprekSearch[examen_id]='.$data->id],['title'=> 'Naar Gesprekken',]);
             },
           ],
           [
@@ -71,6 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
               'delete' => function($url, $model){
                   return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], [
                       'class' => '',
+                      'title'=> 'Delete',
                       'data' => [
                           'confirm' => 'Weet je het zeker?',
                           'method' => 'post',
@@ -90,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
   <?= Html::a('Nieuw Examen', ['create'], ['class' => 'btn btn-success']) ?>
   &nbsp;
-  <?= Html::a('<span class="glyphicon glyphicon-edit">Planner</span>', ['/gesprek/overzicht'], ['class' => 'btn btn-info']) ?>
+  <?= Html::a('<span class="glyphicon glyphicon-edit">Planner</span>', ['/gesprek/overzicht'], ['class' => 'btn btn-info', 'title' => 'Naar examenplanner']) ?>
 </p>
 <br>
 <hr>

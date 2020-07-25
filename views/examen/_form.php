@@ -53,6 +53,16 @@ use nex\datepicker\DatePicker;
     <?php if (isset($gesprek)): ?>
       <h2>Gesprekken</h2>
       <p>
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+          <th scope="col">&nbsp;</th>
+          <th scope="col">KT</th>
+          <th scope="col">WP</th>
+          <th scope="col">Beschrijving</th>
+          <th scope="col">Gesprek</th>
+          </tr>
+        </thead>
       <?php foreach ($gesprek as $item): ?>
         <?php $name = $item['kerntaak_nr'].".".$item['gesprek_nr']." : ".
                 $item['kerntaak_naam']." ".$item['gesprek_naam']."<br>";
@@ -63,10 +73,16 @@ use nex\datepicker\DatePicker;
                   $status="unchecked";
                 }
         ?>
-        <input type="checkbox" id=<?= $item['id'] ?> name='checkbox[]' value=<?= $item['id'] ?> <?= $status ?> >
-        <label for=<?= $item['id'] ?> > <?= $name ?> </label> <br>
+        <tr>
+          <td>
+            <input type="checkbox" id=<?= $item['id'] ?> name='checkbox[]' value=<?= $item['id'] ?> <?= $status ?> >
+          </td>
+
+          <?php echo '<td>'.$item['kerntaak_nr']."</td><td>".$item['gesprek_nr'].'</td><td>'.$item['kerntaak_naam'].'</td><td>'.$item['gesprek_naam'].'</td>' ?>
+        </tr>
       <?php endforeach ?>
     <?php endif ?>
+    </table>
     </p>
 
     <br>

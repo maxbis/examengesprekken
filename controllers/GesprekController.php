@@ -14,6 +14,9 @@ use yii\filters\VerbFilter;
 use yii\data\Pagination;
 use yii\app;
 
+
+use yii\helpers\ArrayHelper;
+
 use yii\filters\AccessControl;
 
 /**
@@ -60,11 +63,16 @@ class GesprekController extends Controller
     {
         $searchModel = new GesprekSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+      
+        //$examenList = ArrayHelper::map(examen::find()->asArray()->all(),'id','naam');
+        //dd($examenList);
+        $examenList = examen::find()->asArray()->all();      
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'examen' => $this->getActiefExamen(),
+            'examenList' => $examenList,
         ]);
     }
 
@@ -184,7 +192,8 @@ class GesprekController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ( $model->load(Yii::$app->request->post()) ) {
+          $result = $model->save();
           return $this->redirect(['/gesprek/overzicht']);
         }
 

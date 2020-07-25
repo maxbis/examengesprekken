@@ -83,7 +83,7 @@ class gesprek extends \yii\db\ActiveRecord
     public function getAllRolspelers()
     {
         // rolspeler::find()->all();
-        return rolspeler::find()->where(['actief' => '1'])->all();;
+        return rolspeler::find()->where(['actief' => '1'])->all();
     }
 
     public function getStatusNaam()

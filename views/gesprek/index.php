@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use yii\app;
 
@@ -45,8 +46,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['style' => 'width:10px; white-space: normal;'],
                 'value' => 'examen_id',
             ],
-            [   'attribute' => 'statusNaam',
-                'contentOptions' => ['style' => 'width:10px; white-space: normal;'],
+            // [
+            //    'attribute'=>'examen_id',
+            //    'filter' => ArrayHelper::map($examenList,'id','naam'),
+            // ],
+            [   'attribute' => 'status',
+                'contentOptions' => ['style' => 'width:100px; white-space: normal;'],
+                'filter' => [''=>'alles', '0'=>'Wachten','1'=>'Loopt','2'=>'Klaar'],
                 'value' => 'statusNaam.naam'
             ],
             [   'attribute' => 'student_naam',
@@ -56,6 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['style' => 'width:40px; white-space: normal;'],
             ],
             [   'attribute' => 'rolspeler.naam',
+                'label' => 'Rolspeler',
                 'contentOptions' => ['style' => 'width:200px; white-space: normal;'],
             ],
             [   'attribute' => 'Gesprekstype',
@@ -63,13 +70,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'gespreksNaam.gesprek_naam'
             ],
             [   'attribute' => 'created',
+                //'header' => 'Aanvraag',
                 'contentOptions' => ['style' => 'width:160px; white-space: normal;'],
             ],
             [   
                 'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => 'width:60px;'],
+                'template' => '{update} &nbsp; {delete}',
                 'visible' => ($identity == 'admin'),
-                'template' => '{update} {delete}',
-                'contentOptions' => ['style' => 'width:40px; white-space: normal;'],
             ],
 
             //[
@@ -87,6 +95,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= Html::a('Create Gesprek', ['create'], ['class' => 'btn btn-success']) ?>
 &nbsp;
 <?= Html::a('<span class="glyphicon glyphicon-list-alt"> Examens</span>', ['/examen/index'], ['class' => 'btn btn-info']) ?>
+&nbsp;
+<?= Html::a('<span class="glyphicon glyphicon-edit">Planner</span>', ['/gesprek/overzicht'], ['class' => 'btn btn-info']) ?>
 </p>
 
 <hr>

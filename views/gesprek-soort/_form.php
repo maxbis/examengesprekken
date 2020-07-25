@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\GesprekSoort */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+<hr>
 <div class="gesprek-soort-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -33,17 +33,20 @@ use yii\widgets\ActiveForm;
     <br>
     <p>
 
-        <?= Html::submitButton('&nbsp;Save&nbsp;', ['class' => 'btn btn-success']) ?>
+    <?= Html::a('Cancel', ['index'], ['class'=>'btn btn-primary']) ?>
+    &nbsp;
+    <?= Html::submitButton('&nbsp;Save&nbsp;', ['class' => 'btn btn-success']) ?>
 
-        &nbsp;
 
-        <?= Html::a('Delete', ['delete', 'id' => $model->id],
-                              ['class' => 'btn btn-danger',
-                                'data' => ['confirm' => 'Are you sure you want to delete this item?',
-                                           'method' => 'post']
-                              ]
-                    ) ?>
 
+    <!--
+    <?= Html::a('Delete', ['delete', 'id' => $model->id],
+                          ['class' => 'btn btn-danger',
+                            'data' => ['confirm' => 'Are you sure you want to delete this item?',
+                                        'method' => 'post']
+                          ]
+                ) ?>
+    -->
 
     <!--
       <?= Html::a('Copy', ['copy', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>

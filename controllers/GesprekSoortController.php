@@ -128,7 +128,7 @@ class GesprekSoortController extends Controller
                 'count' => $count,
             ]);
         } else {
-            //$this->findModel($id)->delete();
+            $this->findModel($id)->delete();
             return $this->redirect(['index']);
         }
         
@@ -161,8 +161,7 @@ class GesprekSoortController extends Controller
       $sql="select max(id) id from gesprek_soort";
       $data = Yii::$app->db->createCommand($sql);
       $newId = $data->queryOne();
-      $this->redirect(array('gesprek-soort/update?id='.$newId['id']));
-
+      return $this->redirect(['index']);
     }
 
 }

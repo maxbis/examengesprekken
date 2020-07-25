@@ -50,7 +50,7 @@ echo Nav::widget([
             'visible' => (Yii::$app->user->identity->role == 'admin'),
             'items' => [
                  ['label' => 'Examens', 'url' => ['/examen/index'] ],
-                 ['label' => 'Gesprektypen', 'url' => ['/gesprek-soort/index']],
+                 ['label' => 'Gesprekssoort', 'url' => ['/gesprek-soort/index']],
                  ['label' => 'Rolspelers', 'url' => ['/rolspeler/index']],
                  ['label' => 'Gesprekken', 'url' => ['/gesprek/index']],
                  ['label' => 'Planner', 'url' => ['/gesprek/overzicht']],

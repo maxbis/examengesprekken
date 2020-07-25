@@ -19,10 +19,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1>Rolspelers</h1>
         </div>
         <div class="mt-auto p-2">
-            Selecteer:
-            <a class="btn btn-success" role="button" href="select?all=1">Allen</a>
+            Selecteer:&nbsp;
+            <a class="btn btn-success" role="button" href="select?all=1" title="Maak alle rolspelers actief">Allen</a>
             &nbsp;
-            <a class="btn btn-primary" role="button" href="select?all=0">Geen</a>
+            <a class="btn btn-primary" role="button" href="select?all=0" title="Maak alle rolspelers inactief">Geen</a>
             &nbsp;
         </div>
     </div>
@@ -42,23 +42,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['style' => 'width:400px; white-space: normal;'],
                 'format' => 'raw',
                 'value' => function ($data) {
-                  return Html::a($data->naam, '/rolspeler/update?id='.$data->id);
+                  return Html::a($data->naam, '/rolspeler/update?id='.$data->id,['title' => 'Edit',]);
                 },  
             ],
             [
                 'attribute'=>'actief',
-                'contentOptions' => ['style' => 'width:10px; white-space: normal;'],
+                'contentOptions' => ['style' => 'width:40px; white-space: normal;'],
                 'format' => 'raw',
+                'filter' => [''=> 'alles', '0'=>'Inactief','1'=>'Actief'],
                 'value' => function ($data) {
-                  $status = $data->actief ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-msnus"></span>';
-                  return Html::a($status, '/rolspeler/toggle-actief?id='.$data->id);
+                  $status = $data->actief ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-minus"></span>';
+                  return Html::a($status, '/rolspeler/toggle-actief?id='.$data->id, ['title' => 'Actief <-> Inactief',]);
                 }
             ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'contentOptions' => ['style' => 'width:10px;'],
-                'template' => '{delete} {update}',
+                'contentOptions' => ['style' => 'width:20px;'],
+                'template' => '{delete}',
             ],
         ],
     ]); ?>

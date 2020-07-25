@@ -169,7 +169,7 @@ class ExamenController extends Controller
         $sql="update examen set actief=1 where id = :id; update examen set actief=0 where id != :id;";
         $params = array(':id'=> $id);
         Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
-        return $this->redirect(['/examen/index']);
+        return $this->redirect(['index']);
     }
 
     public function actionHelp() {

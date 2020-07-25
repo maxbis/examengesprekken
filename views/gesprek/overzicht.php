@@ -7,7 +7,7 @@ use yii\widgets\LinkPager;
 <div class="gesprek-overzicht">
     <h1>Gespreksplanner</h1>
     voor examen:  <a href="/examen/update?id=<?=$examen->id?>">
-                    <span class="bg-info text-white" ><?=$examen->naam?></span>
+                    <span class="" ><?=$examen->naam?></span>
                   </a>(<?=$examen->datum_van?> - <?=$examen->datum_tot?>)
 
     <hr>
@@ -49,36 +49,45 @@ use yii\widgets\LinkPager;
           <input type="hidden" id="id" name="id" value=<?= $item->id  ?>>
           <td>
 
-            <select name="rolspeler" id="rolspeler">
-              <?php foreach($item->allRolspelers as $itemList):
-                if ($itemList->id == $item->rolspeler_id) {
-                  $select = 'selected';
-                } else {
-                  $select = '';
-                } ?>
-                <option value= <?= $itemList->id ?> <?= $select ?> ><?= $itemList->naam ?></option>
-              <?php endforeach ?>
-            </select>
-          </td>
-          <td>
-
-            <select name="status" id="status">
-              <?php
-                $status=['Wachten','Loopt','Klaar'];
-                for($i=0;$i<=2;$i++) {
-                  if ($i == $item->status) {
+            <?php if ($item->status != 2): ?>
+              <select name="rolspeler" id="rolspeler" onchange='document.getElementById("update<?=$item->id?>").style.display="block";'>
+                <?php foreach($item->allRolspelers as $itemList):
+                  if ($itemList->id == $item->rolspeler_id) {
                     $select = 'selected';
                   } else {
                     $select = '';
-                  }
-                ?>
-                  <option value=<?= $i ?> <?= $select ?> > <?= $status[$i] ?> </option>
-                <?php };
-              ?>
-            </select>
+                  } ?>
+                  <option value= <?= $itemList->id ?> <?= $select ?> ><?= $itemList->naam ?></option>
+                <?php endforeach ?>
+              </select>
+            <?php else: ?>
+              <?= $item->rolspeler->naam ?>
+            <?php endif; ?>
           </td>
           <td>
-            <input type="submit" value="Update">
+
+            <?php if ($item->status != 2): ?>   
+              <select name="status" id="status" onchange='document.getElementById("update<?=$item->id?>").style.display="block";'>
+                <?php
+                  $status=['Wachten','Loopt','Klaar'];
+                  for($i=0;$i<=2;$i++) {
+                    if ($i == $item->status) {
+                      $select = 'selected';
+                    } else {
+                      $select = '';
+                    }
+                  ?>
+                  <option value=<?= $i ?> <?= $select ?> > <?= $status[$i] ?> </option>
+                  <?php };
+                ?>
+              </select>
+            <?php else: ?>
+              Klaar
+            <?php endif; ?>
+
+          </td>
+          <td>
+            <input type="submit" id="update<?=$item->id?>" style="display: none;color:red;" value="Update">
           </td>
         </form>
       </tr>

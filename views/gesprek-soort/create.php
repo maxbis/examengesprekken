@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\GesprekSoort */
 
-$this->title = 'Create Gesprek Soort';
+$this->title = 'Aanmaken nieuw gesprekssoort';
 $this->params['breadcrumbs'][] = ['label' => 'Gesprek Soorts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
