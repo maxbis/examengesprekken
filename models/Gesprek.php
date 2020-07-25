@@ -1,7 +1,7 @@
 <?php
 
 namespace app\models;
-use app\models\rolspeler;
+use app\models\Rolspeler;
 
 use Yii;
 
@@ -82,8 +82,8 @@ class gesprek extends \yii\db\ActiveRecord
 
     public function getAllRolspelers()
     {
-        // rolspeler::find()->all();
-        return rolspeler::find()->where(['actief' => '1'])->all();
+        // Rolspeler::find()->all();
+        return Rolspeler::find()->where(['actief' => '1'])->all();
     }
 
     public function getStatusNaam()

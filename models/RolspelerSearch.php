@@ -4,7 +4,7 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\rolspeler;
+use app\models\Rolspeler;
 
 /**
  * RolspelerSearch represents the model behind the search form of `app\models\rolspeler`.
@@ -40,7 +40,7 @@ class RolspelerSearch extends Rolspeler
      */
     public function search($params)
     {
-        $query = rolspeler::find();
+        $query = Rolspeler::find();
 
         // add conditions that should always apply here
 

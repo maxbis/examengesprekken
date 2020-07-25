@@ -13,7 +13,7 @@ use Yii;
  *
  * @property Gesprek[] $gespreks
  */
-class rolspeler extends \yii\db\ActiveRecord
+class Rolspeler extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
